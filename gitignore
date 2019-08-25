@@ -1,0 +1,42 @@
+# Xcode
+#
+# gitignore contributors: remember to update Global/Xcode.gitignore, Objective-C.gitignore & Swift.gitignore
+
+## Build generated
+build/
+DerivedData/
+
+## Various settings
+*.pbxuser
+!default.pbxuser
+*.mode1v3
+!default.mode1v3
+*.mode2v3
+!default.mode2v3
+*.perspectivev3
+!default.perspectivev3
+xcuserdata/
+xcshareddata/
+
+## Other
+*.moved-aside
+*.xccheckout
+*.xcscmblueprint
+
+## Obj-C/Swift specific
+*.hmap
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+
+
+__ProjectName__.xcodeproj/xcuserdata/
+__ProjectName__.xcworkspace/
+*.swp
+.DS_Store
+__ProjectName__.xcodeproj/project.xcworkspace/xcuserdata/
