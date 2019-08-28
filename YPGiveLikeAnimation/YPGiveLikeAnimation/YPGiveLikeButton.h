@@ -20,6 +20,7 @@ NS_ASSUME_NONNULL_BEGIN
     
 @property (nonatomic,strong) NSString *image;
 @property (nonatomic,strong) NSString *selectedImage;
+@property (nonatomic,strong) UIColor *color;
 @property (nonatomic,assign) BOOL selected;
     
 @property (nonatomic,weak) id<YPGiveLikeButtonDelegate>delegate;

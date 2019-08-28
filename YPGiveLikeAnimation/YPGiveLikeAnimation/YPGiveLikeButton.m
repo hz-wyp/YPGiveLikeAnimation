@@ -59,41 +59,40 @@ static CGFloat const duration = 0.5;
 }
     
 - (void)startAnimation{
-    UIView *beforeBtn = self;
     CGFloat length = 4;
-    CGFloat width = beforeBtn.frame.size.width;
-    CGFloat height = beforeBtn.frame.size.height;
+    CGFloat width = 30;
     for (int i = 0; i < 6; i++) {
         CAShapeLayer *layer = [CAShapeLayer layer];
-        layer.frame = beforeBtn.bounds;
-        layer.fillColor = [UIColor redColor].CGColor;
+        layer.position = CGPointMake(self.frame.size.width * 0.5, self.frame.size.height * 0.5);
+        layer.fillColor = self.color.CGColor;
         layer.strokeColor = [UIColor clearColor].CGColor;
-        layer.anchorPoint = CGPointMake(0.5, 0.5);
-        layer.transform = CATransform3DMakeRotation(M_PI / 3.0f * i, 0.0, 0.0, 1.0);
         //画小三角
         UIBezierPath *startPath = [UIBezierPath bezierPath];
-        [startPath moveToPoint:CGPointMake((width - length) * 0.5, 0)];
-        [startPath addLineToPoint:CGPointMake((width + length) * 0.5, 0)];
-        [startPath addLineToPoint:CGPointMake(width * 0.5, height * 0.5)];
-        [startPath addLineToPoint:CGPointMake((width - length) * 0.5, 0)];
-        layer.path = startPath.CGPath;
-        [beforeBtn.layer addSublayer:layer];
+        [startPath moveToPoint:CGPointMake((-length) * 0.5, -width)];
+        [startPath addLineToPoint:CGPointMake((length) * 0.5, -width)];
+        [startPath addLineToPoint:CGPointMake(0, 0)];
+        [startPath addLineToPoint:CGPointMake((- length) * 0.5, -width)];
         
+        layer.path = startPath.CGPath;
+        layer.transform = CATransform3DMakeRotation(M_PI / 3.0f * i, 0.0, 0.0, 1.0);
+        [self.layer addSublayer:layer];
+        //伸缩动画
+        CABasicAnimation *scralAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+        scralAnimation.fromValue = @(0.0);;
+        scralAnimation.toValue = @(1.0);
+        scralAnimation.duration = duration * 0.2;
+        
+        //路径动画
         UIBezierPath *endPath = [UIBezierPath bezierPath];
-        [endPath moveToPoint:CGPointMake((width - length) * 0.5, 0)];
-        [endPath addLineToPoint:CGPointMake((width + length) * 0.5, 0)];
-        [endPath addLineToPoint:CGPointMake(width * 0.5, 0)];
+        [endPath moveToPoint:CGPointMake(( -length) * 0.5, -width)];
+        [endPath addLineToPoint:CGPointMake((length) * 0.5, -width)];
+        [endPath addLineToPoint:CGPointMake(0, -width)];
         
         CABasicAnimation *pathAnimation = [CABasicAnimation animationWithKeyPath:@"path"];
         pathAnimation.fromValue = (__bridge id)layer.path;
         pathAnimation.toValue = (__bridge id)endPath.CGPath;
         pathAnimation.beginTime = duration * 0.2;
         pathAnimation.duration = duration * 0.8;
-        
-        CABasicAnimation *scralAnimation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-        scralAnimation.fromValue = @(0.0);;
-        scralAnimation.toValue = @(1.0);
-        scralAnimation.duration = duration * 0.2;
         
         CAAnimationGroup *groupAnimation = [CAAnimationGroup animation];
         groupAnimation.animations = @[pathAnimation,scralAnimation];
@@ -196,6 +195,13 @@ static CGFloat const duration = 0.5;
         [self addSubview:_afterImageView];
     }
     return _afterImageView;
+}
+
+- (UIColor *)color{
+    if (!_color) {
+        _color = [UIColor redColor];
+    }
+    return _color;
 }
 
 @end
